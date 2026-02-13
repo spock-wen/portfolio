@@ -20,7 +20,7 @@ export function Background() {
     let mouseX = -1000;
     let mouseY = -1000;
 
-    // Configuration
+    // 配置
     const isMobile = width < 768;
     const particleCount = isMobile ? 30 : 60;
     const connectionDistance = isMobile ? 100 : 150;
@@ -41,7 +41,7 @@ export function Background() {
         this.vx = (Math.random() - 0.5) * moveSpeed;
         this.vy = (Math.random() - 0.5) * moveSpeed;
         this.size = Math.random() * 2 + 1;
-        // Cyan and Purple accents
+        // 青色和紫色点缀
         this.color = Math.random() > 0.5 ? 'rgba(6, 182, 212,' : 'rgba(139, 92, 246,'; 
       }
 
@@ -49,7 +49,7 @@ export function Background() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Bounce off edges
+        // 边缘反弹
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
       }
@@ -79,7 +79,7 @@ export function Background() {
         this.size = Math.random() * 3 + 1;
         this.life = 1.0;
         this.decay = Math.random() * 0.03 + 0.01;
-        this.color = Math.random() > 0.5 ? '6, 182, 212' : '139, 92, 246'; // Cyan or Purple
+        this.color = Math.random() > 0.5 ? '6, 182, 212' : '139, 92, 246'; // 青色或紫色
         this.vx = (Math.random() - 0.5) * 2;
         this.vy = (Math.random() - 0.5) * 2;
       }
@@ -124,7 +124,7 @@ export function Background() {
         mouseY = e.clientY;
       }
       
-      // Spawn trail particles
+      // 生成拖尾粒子
       for (let i = 0; i < 3; i++) {
         trailParticles.push(new TrailParticle(mouseX, mouseY));
       }
@@ -134,19 +134,19 @@ export function Background() {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      // Draw background gradient
+      // 绘制背景渐变
       const gradient = ctx.createLinearGradient(0, 0, 0, height);
       gradient.addColorStop(0, '#020617'); // slate-950
       gradient.addColorStop(1, '#0f172a'); // slate-900
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
-      // Update and draw background particles
+      // 更新并绘制背景粒子
       particles.forEach((particle, i) => {
         particle.update();
         particle.draw();
 
-        // Connect particles to each other
+        // 连接粒子
         for (let j = i + 1; j < particles.length; j++) {
           const other = particles[j];
           const dx = particle.x - other.x;
@@ -163,17 +163,17 @@ export function Background() {
           }
         }
 
-        // Connect particles to mouse
+        // 连接粒子到鼠标
         const dx = particle.x - mouseX;
         const dy = particle.y - mouseY;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < mouseConnectionDistance) {
             ctx.beginPath();
-            // Create a gradient for the connection line
+            // 为连接线创建渐变
             const grad = ctx.createLinearGradient(particle.x, particle.y, mouseX, mouseY);
             grad.addColorStop(0, particle.color + ' 0.1)');
-            grad.addColorStop(1, 'rgba(6, 182, 212, 0.4)'); // Cyan at mouse
+            grad.addColorStop(1, 'rgba(6, 182, 212, 0.4)'); // 鼠标处的青色
             
             ctx.strokeStyle = grad;
             ctx.lineWidth = 1.5;
@@ -183,7 +183,7 @@ export function Background() {
         }
       });
 
-      // Update and draw trail particles
+      // 更新并绘制拖尾粒子
       trailParticles = trailParticles.filter(p => p.life > 0);
       trailParticles.forEach(p => {
         p.update();

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export function GeekAvatar({ className = "", size = 200 }: { className?: string; size?: number }) {
   const [binaryStream, setBinaryStream] = useState<string[]>([]);
 
-  // Generate random binary stream for background effect
+  // 生成用于背景效果的随机二进制流
   useEffect(() => {
     const generateStream = () => {
       const chars = '01';
@@ -25,7 +25,7 @@ export function GeekAvatar({ className = "", size = 200 }: { className?: string;
 
   return (
     <div className={`relative flex items-center justify-center ${className}`} style={{ width: size, height: size }}>
-      {/* Outer Glow Container */}
+      {/* 外部发光容器 */}
       <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       
       <svg
@@ -56,7 +56,7 @@ export function GeekAvatar({ className = "", size = 200 }: { className?: string;
           </filter>
         </defs>
 
-        {/* Tech Ring Background - Rotating */}
+        {/* 科技环背景 - 旋转 */}
         <motion.g
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -66,7 +66,7 @@ export function GeekAvatar({ className = "", size = 200 }: { className?: string;
           <circle cx="100" cy="100" r="85" stroke="rgba(0, 255, 65, 0.1)" strokeWidth="8" strokeDasharray="60 120" />
         </motion.g>
 
-        {/* Inner Tech Ring - Counter Rotating */}
+        {/* 内部科技环 - 反向旋转 */}
         <motion.g
           animate={{ rotate: -360 }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -76,12 +76,12 @@ export function GeekAvatar({ className = "", size = 200 }: { className?: string;
           <circle cx="100" cy="100" r="70" stroke="rgba(0, 255, 65, 0.3)" strokeWidth="1" strokeDasharray="4 4" />
         </motion.g>
 
-        {/* The Architect Face Silhouette */}
+        {/* 架构师面部剪影 */}
         <g clipPath="url(#face-clip)">
-          {/* Dark Background for Face */}
+          {/* 面部深色背景 */}
           <path d="M60 40 L140 40 L160 80 L140 160 L60 160 L40 80 Z" fill="#0a0a0a" />
           
-          {/* Binary Rain Inside Face */}
+          {/* 面部内部二进制雨 */}
           {binaryStream.map((line, i) => (
             <text
               key={i}
@@ -96,20 +96,20 @@ export function GeekAvatar({ className = "", size = 200 }: { className?: string;
             </text>
           ))}
           
-          {/* Grid Overlay on Face */}
+          {/* 面部网格覆盖 */}
           <path d="M40 80 L160 80 M60 40 L60 160 M140 40 L140 160" stroke="rgba(0, 243, 255, 0.1)" strokeWidth="1" />
         </g>
 
-        {/* Face Outline - Cyber Border */}
+        {/* 面部轮廓 - 赛博边框 */}
         <path d="M60 40 L140 40 L160 80 L140 160 L60 160 L40 80 Z" stroke="url(#cyber-gradient)" strokeWidth="2" fill="none" />
         
-        {/* Glowing Visor (Eyes) */}
+        {/* 发光护目镜 (眼睛) */}
         <rect x="65" y="75" width="70" height="10" rx="2" fill="url(#visor-glow)" opacity="0.9">
           <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
         </rect>
         <path d="M65 80 L135 80" stroke="#fff" strokeWidth="1" opacity="0.5" />
 
-        {/* Audio Visualizer / Voice Lines at Mouth */}
+        {/* 音频可视化 / 嘴部语音线 */}
         <g transform="translate(85, 120)">
            <rect x="0" y="0" width="4" height="15" fill="#00f3ff">
              <animate attributeName="height" values="5;15;5" dur="0.5s" repeatCount="indefinite" />
@@ -125,13 +125,13 @@ export function GeekAvatar({ className = "", size = 200 }: { className?: string;
            </rect>
         </g>
 
-        {/* Decorative Circuit Nodes */}
+        {/* 装饰性电路节点 */}
         <circle cx="40" cy="80" r="3" fill="#00ff41" />
         <circle cx="160" cy="80" r="3" fill="#00ff41" />
         <circle cx="60" cy="160" r="3" fill="#00f3ff" />
         <circle cx="140" cy="160" r="3" fill="#00f3ff" />
         
-        {/* Connection Lines */}
+        {/* 连接线 */}
         <path d="M40 80 L20 80" stroke="#00ff41" strokeWidth="1" />
         <path d="M160 80 L180 80" stroke="#00ff41" strokeWidth="1" />
         <path d="M100 160 L100 180" stroke="#00f3ff" strokeWidth="1" />

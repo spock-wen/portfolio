@@ -1,12 +1,12 @@
 FROM node:18-alpine AS base
 
-# Install dependencies only when needed
+# 仅在需要时安装依赖项
 FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+# 查看 https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine 以了解为什么可能需要 libc6-compat。
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
+# 根据首选的包管理器安装依赖项
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -16,15 +16,15 @@ RUN \
   fi
 
 
-# Rebuild the source code only when needed
+# 仅在需要时重新构建源代码
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
+# Next.js 收集有关一般用法的完全匿名遥测数据。
+# 在此处了解更多信息：https://nextjs.org/telemetry
+# 如果要在构建期间禁用遥测，请取消注释以下行。
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
@@ -34,25 +34,25 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-# Production image, copy all the files and run next
+# 生产镜像，复制所有文件并运行 next
 FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
-# Uncomment the following line in case you want to disable telemetry during runtime.
+# 如果要在运行时禁用遥测，请取消注释以下行。
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# Don't run as root
+# 不要以 root 用户身份运行
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
-# Set the correct permission for prerender cache
+# 为预渲染缓存设置正确的权限
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Automatically leverage output traces to reduce image size
+# 自动利用输出跟踪来减小镜像大小
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
@@ -62,7 +62,7 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
-# set hostname to localhost
+# 将主机名设置为 localhost
 ENV HOSTNAME "0.0.0.0"
 
 CMD ["node", "server.js"]

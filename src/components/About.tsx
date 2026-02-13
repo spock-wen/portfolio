@@ -12,7 +12,7 @@ const advantages = [
   {
     icon: Users,
     title: '技术管理与团队建设',
-    description: '全链路职业发展经验（开发 -> Leader -> PM）。擅长组建并带领 5-15 人团队攻克技术难关，既能主导架构设计，也能高效统筹项目进度。',
+    description: '全链路职业发展经验（开发 -> Leader -> PM -> 部门经理）。擅长组建并带领 5-15 人团队攻克技术难关，既能主导架构设计，也能高效统筹项目进度。',
   },
   {
     icon: Award,

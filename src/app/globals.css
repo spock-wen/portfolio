@@ -3,54 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 2, 6, 23; /* slate-950 */
+  --background-end-rgb: 15, 23, 42; /* slate-900 */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-glow {
     text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-  }
-  
-  .glass-card {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(148, 163, 184, 0.1);
-  }
-
-  .bg-grid-pattern {
-    background-size: 40px 40px;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
   }
 }

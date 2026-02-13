@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  // reactCompiler: true, // Disable for now as we are on Next.js 14
+  // reactCompiler: true, // 暂时禁用，因为我们使用的是 Next.js 14
 };
 
 export default nextConfig;
